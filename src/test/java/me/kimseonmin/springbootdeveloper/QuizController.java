@@ -1,0 +1,39 @@
+package me.kimseonmin.springbootdeveloper;
+
+import org.aspectj.apache.bcel.classfile.Code;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+public class QuizController {
+    @GetMapping("/quiz")
+    public ResponseEntity<String> Quiz(@RequestParam("code") int code) {
+        switch (code) {
+            case 1:
+                return ResponseEntity.created(null).body("created!");
+
+            case 2:
+                return ResponseEntity.badRequest().body("Bad Request!");
+
+            default:
+                return ResponseEntity.ok().body("Ok!");
+
+
+        }
+
+    }
+
+    @PostMapping("/quiz")
+    public ResponseEntity<String> quiz2(@RequestBody Code code) {
+        switch (code.value()) {
+            case 1:
+                return ResponseEntity.status(403).body("Forbidden!");
+            default:
+                return ResponseEntity.ok().body("Ok!");
+
+        }
+    }
+
+    record Code(int value) {}
+
+}
